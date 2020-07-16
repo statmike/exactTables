@@ -2,12 +2,15 @@ import math # used in threader and checker functions for math.comb
 import time # used for timing information
 import numpy as np # used for array math in loop
 from multiprocessing import Pool # used to run thread values in thread_list asych
+from multiprocessing import cpu_count # used to detect the machines core count (virtual)
 
 # input values 
 N = 70 # how many ratings
 C = 6 # categories 0 to 5
-threads = 8 # desired number of parallel processes to split work over, be careful and know how many computing cores you have as you can slow this down!
 target=4.91
+
+# threads is calculated but can be overwritten
+threads = 8 #cpu_count() # desired number of parallel processes to split work over, be careful and know how many computing cores you have as you can slow this down!
 
 # function that splits all possible combination of N ratings in C categories across threads with approximate balance - this is hard!
 def threader(N,C,threads,i=1,thread_portion=0,thread_list=[None],cpos=[None]):
@@ -118,7 +121,8 @@ def tester(thread):
 
 # function to allocate threads to a pool of processes
 def main(thread_list):
-    pool = Pool() # use processes=threads, processes=8, or whatever you want here - be careful, you can make it slower!
+    print(len(thread_list))
+    pool = Pool(processes=len(thread_list)) # use processes=threads, processes=8, or whatever you want here - be careful, you can make it slower!
     matches = pool.map(tester, thread_list)
     # unpack the list of list due to each process returning a list of matching combos
     matches = [row for sublist in matches for row in sublist]

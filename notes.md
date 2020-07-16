@@ -1,5 +1,10 @@
 CLEAN and move these to the initial readme.md
 
+70,6
+8 threads gets 141 combos
+16 threads gets 136 combos
+WHY? Fix this next
+
 
 # DONE: adjust match precision to adhear to input target math.isclose used with rel_tol=.001
 # DONE: save matches - overall
