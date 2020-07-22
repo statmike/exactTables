@@ -1,11 +1,24 @@
 CLEAN and move these to the initial readme.md
 
-70,6
-8 threads gets 141 combos
-16 threads gets 136 combos
-WHY? Fix this next
 
 
+RIGHT NOW:
+
+
+UP NEXT:
+what if no match is found? fix error in this case
+
+
+QUEUE:
+Deconstruct to more functions for better modularity
+make return be numpy array all the way back to user?
+
+Able to run resulting combination through loops with +n more levels, check for change in target or new target
+
+Constrain combos: like sudoku - N, C where C are distinct with fixed sum/sequence
+
+
+THOUGHTS:
 # DONE: adjust match precision to adhear to input target math.isclose used with rel_tol=.001
 # DONE: save matches - overall
 # report matches, combos, percent matched: thread and overall

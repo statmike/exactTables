@@ -5,7 +5,7 @@ from multiprocessing import Pool # used to run thread values in thread_list asyc
 from multiprocessing import cpu_count # used to detect the machines core count (virtual)
 
 # input values 
-N = 70 # how many ratings
+N = 100 # how many ratings
 C = 6 # categories 0 to 5
 target=4.91
 
@@ -79,7 +79,8 @@ def loop(thread,N,C,target,i=1,l=0,combo=[],matches=[]):
     # start of loop
     if i == 1: start = thread[2][i-1]
     elif len(thread[2]) >= i:
-        if thread[2][i-2] == combo[l,i-2]: start = thread[2][i-1]
+        #if thread[2][i-2] == combo[l,i-2]: start = thread[2][i-1]
+        if np.all(thread[2][:i-1] == combo[l,:i-1]): start = thread[2][i-1]
         else: start = 0
     elif i == C: start = N
     else: start = 0
@@ -87,13 +88,15 @@ def loop(thread,N,C,target,i=1,l=0,combo=[],matches=[]):
     # end of loop
     if i == 1: end = thread[3][i-1]
     elif len(thread[3]) >= i:
-        if thread[3][i-2] == combo[l,i-2]: end = thread[3][i-1]
+        #if thread[3][i-2] == combo[l,i-2]: end = thread[3][i-1]
+        if np.all(thread[3][:i-1] == combo[l,:i-1]): end = thread[3][i-1]
         else: end = N
     else: end = N
 
     # loop
     for cell_value in range(start,end+1):
         combo[l,i-1] = cell_value
+        #print(i,start,end,cell_value,combo[l])
         if i == C: l += 1
         elif i < C : 
             # apply cell_value to combo column i-1 and row l through l+(calculate combos beneath this)
@@ -107,7 +110,7 @@ def loop(thread,N,C,target,i=1,l=0,combo=[],matches=[]):
         #need to avoid cases where denominator is zero - the cases where c0 = N
         np.seterr(divide='ignore', invalid='ignore')
         matches = combo[np.isclose(np.sum(combo*index,axis=1,keepdims=True)/combo[:,1:].sum(axis=1,keepdims=True),target,rtol=.001)[:,0] == True].tolist()
-        print('thread report:',thread[0],thread[1],l)
+        print("thread loop report: thread {}, expects {}, looped over {}, {}".format(thread[0],thread[1], l, thread[1]==l and 'Passes' or 'Error'))
         return matches
     else: return matches, combo, l
 
@@ -121,7 +124,6 @@ def tester(thread):
 
 # function to allocate threads to a pool of processes
 def main(thread_list):
-    print(len(thread_list))
     pool = Pool(processes=len(thread_list)) # use processes=threads, processes=8, or whatever you want here - be careful, you can make it slower!
     matches = pool.map(tester, thread_list)
     # unpack the list of list due to each process returning a list of matching combos
@@ -139,7 +141,8 @@ if __name__ == '__main__':
     end = time.time()
 
     # report useful information 
-    print("Here are the matches:",matches)
+    #print("The thread list:",*thread_list,sep="\n")
+    print("Here are the matches:",*matches,sep="\n")
     print("This took {} seconds".format(end - begin))
     print(len(matches),"matches from",math.comb(N+C-1,C-1),"possible combinations.")
 
