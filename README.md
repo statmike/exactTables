@@ -1,4 +1,4 @@
-# exact-tables
+# exactTables
 
 Exact Tables focuses on recreating contingency tables from statistical information.
 

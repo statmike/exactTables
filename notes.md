@@ -3,11 +3,12 @@ CLEAN and move these to the initial readme.md
 
 
 RIGHT NOW:
-
+DONE - make target evaluation a function called eval
+Make missing category be optional - yes/no
 
 UP NEXT:
-what if no match is found? fix error in this case
-
+send matches through process that add more ratings and new target
+    add plusloop function - keep on main for now, thread it later
 
 QUEUE:
 Deconstruct to more functions for better modularity
@@ -16,6 +17,9 @@ make return be numpy array all the way back to user?
 Able to run resulting combination through loops with +n more levels, check for change in target or new target
 
 Constrain combos: like sudoku - N, C where C are distinct with fixed sum/sequence
+
+
+
 
 
 THOUGHTS:

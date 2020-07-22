@@ -68,6 +68,13 @@ def create_threads(N,C,threads,target):
 
     return thread_list
 
+def eval(combo,index,target):
+    # evaluate combos - multiply by index, filter to rows that match target, move to matches list, return
+    #need to avoid cases where denominator is zero - the cases where c0 = N
+    np.seterr(divide='ignore', invalid='ignore')
+    matches = combo[np.isclose(np.sum(combo*index,axis=1,keepdims=True)/combo[:,1:].sum(axis=1,keepdims=True),target,rtol=.001)[:,0] == True].tolist()
+    return matches
+
 # loop through the combos from start to end specified in a thread alloation, then evaluate each row for match to the target value
 def loop(thread,N,C,target,i=1,l=0,combo=[],matches=[]):
 
@@ -106,10 +113,9 @@ def loop(thread,N,C,target,i=1,l=0,combo=[],matches=[]):
 
     # return to previous level (recursive) or the original call
     if i == 1:
-        # evaluate combos - multiply by index, filter to rows that match target, move to matches list, return
-        #need to avoid cases where denominator is zero - the cases where c0 = N
-        np.seterr(divide='ignore', invalid='ignore')
-        matches = combo[np.isclose(np.sum(combo*index,axis=1,keepdims=True)/combo[:,1:].sum(axis=1,keepdims=True),target,rtol=.001)[:,0] == True].tolist()
+        # find matching combos with target function
+            #matches = combo[np.isclose(np.sum(combo*index,axis=1,keepdims=True)/combo[:,1:].sum(axis=1,keepdims=True),target,rtol=.001)[:,0] == True].tolist()
+        matches = eval(combo,index,target)
         print("thread loop report: thread {}, expects {}, looped over {}, {}".format(thread[0],thread[1], l, thread[1]==l and 'Passes' or 'Error'))
         return matches
     else: return matches, combo, l
@@ -118,14 +124,14 @@ def loop(thread,N,C,target,i=1,l=0,combo=[],matches=[]):
 # setup multiprocessing:
 
 # function that takes a single thread and runs it through loop to get matches
-def tester(thread):
+def run_thread(thread):
     matches = loop(thread[0:4],thread[4],thread[5],thread[6])
     return matches
 
 # function to allocate threads to a pool of processes
 def main(thread_list):
     pool = Pool(processes=len(thread_list)) # use processes=threads, processes=8, or whatever you want here - be careful, you can make it slower!
-    matches = pool.map(tester, thread_list)
+    matches = pool.map(run_thread, thread_list)
     # unpack the list of list due to each process returning a list of matching combos
     matches = [row for sublist in matches for row in sublist]
     return matches
