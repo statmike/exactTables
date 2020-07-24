@@ -20,8 +20,20 @@ b2
 np.all(a2==b2)
 
 
+a = True
+b = False
 
+if b: c=4
+else: c=5
+#if a: c=3
+print(c)
 
+a = False
+if a: print("a is true")
+if not a: print("a is false")
+
+for a in range(0,1):
+    print(a)
 
 
 [8, 2220030, [24, 9], [70], 70, 6, 4.91]

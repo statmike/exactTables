@@ -5,6 +5,7 @@ CLEAN and move these to the initial readme.md
 RIGHT NOW:
 DONE - make target evaluation a function called eval
 Make missing category be optional - yes/no
+change print when no matches 'Here are the matches ....'
 
 UP NEXT:
 send matches through process that add more ratings and new target

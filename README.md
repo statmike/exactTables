@@ -9,6 +9,7 @@ What happens when you get an average score from a rating scale, like the number 
 This code returns all the combinations that yield a target statistic.  The inputs are:
 * N = the number of ratings
 * C = the number of response levels
+* inczero = True/False for allowing 0 ratings (this would mean non-response and would not count towards the target evaluation)
 * target = the mean of the responses.
 
 ## Computation Considerations
@@ -37,8 +38,11 @@ To scale this work, I prefer using the [UBER Fiber module](https://uber.github.i
 A list of features in development
 * provide examples on single machines and clusters
 * make missing values an option, currently this code uses the first category as missing by default.  That means the first category is "0" and does not impact the mean calculation.
+* display summary of likely distributions
+* re-evalute a list of matches for additional ratings and new target
 * more efficient algorithm for choosing combination ranges.  Currently, every possible combination gets evaluated.  For a given target, there are combination ranges that can be avoided altogether.
 * provide different target types besides mean
 * expand to 2-way tables
 * package the project
+* expand to n-way tables
 
