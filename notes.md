@@ -8,6 +8,7 @@ DONE - Make missing category be optional - yes/no
 change print when no matches 'Here are the matches ....'
 plot combinations
 plot hover text fixed
+plot - optional 0 category if inczero=True - or make this fully dynamic
 
 UP NEXT:
 send matches through process that add more ratings and new target
