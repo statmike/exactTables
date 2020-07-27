@@ -4,12 +4,20 @@ CLEAN and move these to the initial readme.md
 
 RIGHT NOW:
 DONE - make target evaluation a function called eval
-Make missing category be optional - yes/no
+DONE - Make missing category be optional - yes/no
 change print when no matches 'Here are the matches ....'
+plot combinations
+plot hover text fixed
 
 UP NEXT:
 send matches through process that add more ratings and new target
     add plusloop function - keep on main for now, thread it later
+thoguhts:
+    each combo has a sum and count
+    each addition to a combo has a sum and count
+    evaluate which additions can yield target
+    check for uniqueness - add if new
+
 
 QUEUE:
 Deconstruct to more functions for better modularity
@@ -19,6 +27,11 @@ Able to run resulting combination through loops with +n more levels, check for c
 
 Constrain combos: like sudoku - N, C where C are distinct with fixed sum/sequence
 
+EFFICIENT ALG:
+run zero first
+Conditionally loop high to low or low to high - based on distance from target
+Represent targets as sum and count - use to shrink range at each loop - when target sum is exceeded stop iterating for that C
+thread all possible as it is done now, then apply efficient algorithm within each thread, this may cause theads to have unequal computation - but that is ok
 
 
 

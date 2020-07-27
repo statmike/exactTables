@@ -251,3 +251,14 @@ for col in ['sepal_length', 'sepal_width', 'petal_length']:
     fig.add_trace(go.Bar(x=iris.index, y=iris[col]))
 fig.update_layout(barmode='stack')
 fig.show()
+
+
+    import plotly.express as px
+    #fig2 = px.treemap(df, path=["# of 0's","# of 1's"])
+    #fig2.show()
+
+    #fig3 = px.sunburst(df, path=["# of 0's","# of 1's","# of 2's","# of 3's","# of 4's","# of 5's"])
+    #fig3.show()
+
+    #fig4 = px.sunburst(df, path=['1','2','3','4','5'])
+    #fig4.show()

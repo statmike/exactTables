@@ -180,20 +180,10 @@ if __name__ == '__main__':
     from pandas import DataFrame
     df = DataFrame(matches,columns=['0','1','2','3','4','5'])
 
-    import plotly.express as px
-    #fig2 = px.treemap(df, path=["# of 0's","# of 1's"])
-    #fig2.show()
-
-    #fig3 = px.sunburst(df, path=["# of 0's","# of 1's","# of 2's","# of 3's","# of 4's","# of 5's"])
-    #fig3.show()
-
-    #fig4 = px.sunburst(df, path=['1','2','3','4','5'])
-    #fig4.show()
-
     import plotly.graph_objects as go
     fig = go.Figure()
     for col in ['1','2','3','4','5']:
-        fig.add_trace(go.Bar(y=df.index, x=df[col],orientation='h',name=col))
+        fig.add_trace(go.Bar(y=df.index, x=df[col],orientation='h',name=col,hovertemplate="%{x}"))
     fig.update_layout(barmode='stack',xaxis_title="# of Ratings",yaxis_title="Combinations")
     fig.update_layout(title=dict(
         text=str(len(matches))+" Matching Combinations Visualized<br>For Target = "+str(target)+", "+str(N)+" Ratings, in "+str(C)+" categories , and missing ratings = "+str(inczero),
@@ -207,11 +197,12 @@ if __name__ == '__main__':
         yanchor="bottom",
         y=1.0,
         xanchor="center",
-        x=0.5
+        x=0.5,
+        traceorder="normal"
     ))
     fig.update_yaxes(showticklabels=False)
     fig.update_xaxes(range=[0,N])
-    #fig.show()
+    fig.show()
     fig.write_image("combos.svg")
 
 
