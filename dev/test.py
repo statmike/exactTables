@@ -179,3 +179,75 @@ for a in range(0,1):
 [2 0 0 0 0 0]
 [2 0 0 0 0 0]
 [2 0 0 0 0 0]
+
+
+
+
+import plotly.graph_objects as go
+
+fig = go.Figure(go.Parcats(
+    dimensions=[
+        {'label': 'Hair',
+         'values': ['Black', 'Brown', 'Brown', 'Brown', 'Red']},
+        {'label': 'Eye',
+         'values': ['Brown', 'Brown', 'Brown', 'Blue', 'Blue']},
+        {'label': 'Sex',
+         'values': ['Female', 'Male', 'Female', 'Male', 'Male']}],
+    counts=[2,2,2,2,2]
+))
+
+
+fig.show()
+
+
+[1]*10
+
+
+counts=[6, 10, 40, 23, 7]
+
+matches = [[1,2,3,4],[5,6,7,8],[9,8,7,6]]
+[item[0] for item in matches]
+
+from pandas import DataFrame
+df = DataFrame(matches,columns=['A','B','C','D'])
+print(df)
+df
+
+
+
+
+
+    import plotly.graph_objects as go
+
+    fig = go.Figure(go.Parcats(
+        dimensions=[
+            {'label': 'Rating 1',
+            'values': [item[1] for item in matches]},
+            {'label': 'Rating 2',
+            'values': [item[2] for item in matches]},
+            {'label': 'Rating 3',
+            'values': [item[3] for item in matches]},
+            {'label': 'Rating 4',
+            'values': [item[4] for item in matches]},
+            {'label': 'Rating 5',
+            'values': [item[5] for item in matches]}],
+        counts=[1]*len(matches)
+    ))
+
+
+    fig.show()
+
+
+
+
+
+
+import plotly.express as px
+iris = px.data.iris()
+iris = iris[:20]
+import plotly.graph_objects as go
+fig = go.Figure()
+for col in ['sepal_length', 'sepal_width', 'petal_length']:
+    fig.add_trace(go.Bar(x=iris.index, y=iris[col]))
+fig.update_layout(barmode='stack')
+fig.show()

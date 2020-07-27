@@ -12,6 +12,9 @@ This code returns all the combinations that yield a target statistic.  The input
 * inczero = True/False for allowing 0 ratings (this would mean non-response and would not count towards the target evaluation)
 * target = the mean of the responses.
 
+## Example
+![](combos.svg)
+
 ## Computation Considerations
 This seems like a trivial challenge.  Just cycle through the combinations, check for a match, return matches.  The computation challenge is that this becomes an enormous sequence quickly.  With 100 ratings in 6 categories, this is a binomial coefficient: (100+6-1) CHOOSE (6-1).  That's 96,560,646 combinations to evaluate!
 
