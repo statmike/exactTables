@@ -202,7 +202,7 @@ if __name__ == '__main__':
     ))
     fig.update_yaxes(showticklabels=False)
     fig.update_xaxes(range=[0,N])
-    fig.show()
+    #fig.show()
     fig.write_image("combos.svg")
 
 
